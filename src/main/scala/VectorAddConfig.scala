@@ -1,7 +1,7 @@
 import beethoven.Platforms.FPGA.Xilinx.F2._
 import beethoven._
 
-class MyVectorAddConfig extends AcceleratorConfig(List(
+class VectorAddConfig extends AcceleratorConfig(List(
   AcceleratorSystemConfig(
     // if you want to duplicate the functionality and have a multi-core design
     // you can crank up this parameter
@@ -10,7 +10,7 @@ class MyVectorAddConfig extends AcceleratorConfig(List(
     // to call your accelerator from your C++ testbench using <System_name>::<Command_name>(...);
     name = "MyVectorAdd",
     // an unfortunately complicated boilerplate.
-    moduleConstructor = ModuleBuilder(p => new VecAdd()(p)),
+    moduleConstructor = ModuleBuilder(p => new VectorAdd()(p)),
     // declare all of your memory interfaces here!
     memoryChannelConfig = List(
       ReadChannelConfig("vec_in", dataBytes = 4),
@@ -25,7 +25,7 @@ class MyVectorAddConfig extends AcceleratorConfig(List(
 // Beethoven uses separate BuildModes to enable/disable the generation of certain files
 // than can disrupt the hardware compile/simulation process. Whenever you want to run
 // simulation/synthesis, ensure that the right option is enabled.
-object MyVectorAddConfig extends BeethovenBuild(new MyVectorAddConfig,
+object VectorAddConfig extends BeethovenBuild(new VectorAddConfig,
   buildMode = BuildMode.Synthesis, // BuildMode.Simulation
   // We currently support the F1, F2 instances, a local "Kria" platform (the KV260 FPGA)
   // and are developing support for an ASIC tapeout platform. For your purposes, you

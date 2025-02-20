@@ -4,7 +4,7 @@ import chipsalliance.rocketchip.config._
 import chisel3._
 import chisel3.util._
 
-class VecAdd(implicit p: Parameters) extends AcceleratorCore {
+class VectorAdd(implicit p: Parameters) extends AcceleratorCore {
   // declare a new software interface to this core called "vector_add"
   // if one piece of hardware/Accelerator core can perform more than one action, you can
   // expose these using different BeethovenIOs in the same module
