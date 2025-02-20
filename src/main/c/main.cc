@@ -48,10 +48,10 @@ int main() {
 
     // call your accelerator. If you used the Address() interface in your BeethovenIO, you pass in a `remote_ptr` for
     // that. `remote_ptr` is the structure we use for allocating in the host/fpga.
-    MyAccelerator::my_accel(0, // CORE ID (always needed, but only non-zero if you have more than one core)
+    MyVectorAdd::vector_add(0, // CORE ID (always needed, but only non-zero if you have more than one core)
         15, // addend
-        n_eles, // n_elements
         in_alloc // memory allocation
+        n_eles, // n_elements
     ).get();
 
     // copy back from the FPGA (IMPORTANT)
