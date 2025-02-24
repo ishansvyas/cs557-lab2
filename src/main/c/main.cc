@@ -50,8 +50,8 @@ int main() {
     // that. `remote_ptr` is the structure we use for allocating in the host/fpga.
     MyVectorAdd::vector_add(0, // CORE ID (always needed, but only non-zero if you have more than one core)
         15, // addend
+        n_eles, // n_elements
         in_alloc // memory allocation
-        n_eles // n_elements
     ).get();
 
     // copy back from the FPGA (IMPORTANT)
