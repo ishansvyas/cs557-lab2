@@ -51,7 +51,7 @@ int main() {
     MyVectorAdd::vector_add(0, // CORE ID (always needed, but only non-zero if you have more than one core)
         15, // addend
         in_alloc // memory allocation
-        n_eles, // n_elements
+        n_eles // n_elements
     ).get();
 
     // copy back from the FPGA (IMPORTANT)

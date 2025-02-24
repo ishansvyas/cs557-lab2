@@ -26,7 +26,7 @@ class VectorAddConfig extends AcceleratorConfig(List(
 // than can disrupt the hardware compile/simulation process. Whenever you want to run
 // simulation/synthesis, ensure that the right option is enabled.
 object VectorAddConfig extends BeethovenBuild(new VectorAddConfig,
-  buildMode = BuildMode.Synthesis, // BuildMode.Simulation
+  buildMode = BuildMode.Simulation, // BuildMode.Simulation
   // We currently support the F1, F2 instances, a local "Kria" platform (the KV260 FPGA)
   // and are developing support for an ASIC tapeout platform. For your purposes, you
   // should leave this as the AWSF2Platform.
