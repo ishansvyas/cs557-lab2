@@ -20,6 +20,14 @@ Get the simulator
 git clone https://github.com/Composer-Team/Beethoven-Runtime
 ```
 
+We're using Icarus Verilog. You can install locally with brew, apt, usually, or it is also installed on the class server.
+```bash
+# Linux
+sudo apt-get install iverilog
+# Mac
+brew install icarus-verilog
+```
+
 Set up your environment. The Hardware build system needs to know _where_ to place your hardware. You
 specify this by setting an environment in your shell's rc setup (e.g., `~/.bashrc` for BASH, `~/.zshrc` for ZSH).
 ```bash
@@ -63,7 +71,7 @@ implementation hierarchy. With these more complex modules and designs, you'll fi
 signals that make navigating challenging. In the search box, you can search for strings inside the signal you're looking
 for.
 
-For instance, if I have a state register, I can search "state". If I'm looking for all of the io_ signals,
+For instance, if I have a state register, I can search "state". If I'm looking for all of the "io_*" signals,
 though, I can't just search "io" because this will return all signals with the characters "io" in it
 (e.g., "not_my_signalio" would be returned if it existed). However, if I search "^io", this stipulates that "io" must
 come at the beginning of the screen.
