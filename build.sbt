@@ -19,7 +19,7 @@ lazy val my_vector = {
       name := "prose",
       libraryDependencies ++= Seq(
         "edu.berkeley.cs" %% "chisel3" % chiselVersion,
-        "edu.duke.cs.apex" %% "beethoven-hardware" % "0.0.9"
+        "edu.duke.cs.apex" %% "beethoven-hardware" % "0.0.10"
       ),
       resolvers += ("reposilite-repository-releases" at "http://54.165.244.214:8080/releases").withAllowInsecureProtocol(true),
       addCompilerPlugin("edu.berkeley.cs" % "chisel3-plugin" % chiselVersion cross CrossVersion.full),
