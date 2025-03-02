@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="sbt: edu.duke.cs.apex:rocketchip-macros-fork_2.13:0.1.0:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/AppData/Local/Coursier/cache/v1/http/54.165.244.214%3A8080/releases/edu/duke/cs/apex/rocketchip-macros-fork_2.13/0.1.0/rocketchip-macros-fork_2.13-0.1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/AppData/Local/Coursier/cache/v1/http/54.165.244.214%3A8080/releases/edu/duke/cs/apex/rocketchip-macros-fork_2.13/0.1.0/rocketchip-macros-fork_2.13-0.1.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/AppData/Local/Coursier/cache/v1/http/54.165.244.214%3A8080/releases/edu/duke/cs/apex/rocketchip-macros-fork_2.13/0.1.0/rocketchip-macros-fork_2.13-0.1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

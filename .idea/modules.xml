@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cs557-lab2_5543.iml" filepath="$PROJECT_DIR$/.idea/modules/cs557-lab2_5543.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cs557-lab2_5543-build.iml" filepath="$PROJECT_DIR$/.idea/modules/cs557-lab2_5543-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/prose.iml" filepath="$PROJECT_DIR$/.idea/modules/prose.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/prose-build.iml" filepath="$PROJECT_DIR$/.idea/modules/prose-build.iml" />
     </modules>
   </component>
 </project>
