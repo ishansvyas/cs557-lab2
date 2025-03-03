@@ -33,12 +33,6 @@ class sha3Wrapper(W: Int)(implicit p: Parameters) extends AcceleratorCore {
   val vec_out = getWriterModule("vec_out")
   vec_in.dataChannel.data.ready := false.B
 
-  /*
-  Notes: 1a. dataChannel comes from FPGA to Host
-         1b. requestChannel goes from Host to FPGA
-         if 1b is true; is vec_out initialized correctly?
-   */
-
     // input channel initialization
   vec_in.requestChannel.valid := io.req.valid
   vec_in.requestChannel.bits.addr := io.req.bits.msg_addr
@@ -52,9 +46,8 @@ class sha3Wrapper(W: Int)(implicit p: Parameters) extends AcceleratorCore {
   vec_out.dataChannel.data.bits := DontCare
   vec_out.dataChannel.data.valid := false.B
 
-
   /* --------------------------------
-  * HERE WE ADD THE SHA3 MODULE W/ IO (below line is applicable - don't ignore)
+  * HERE WE ADD THE SHA3 MODULE W/ IO
   * ------------------------------- */
 
   vec_out.dataChannel.data.valid := vec_in.dataChannel.data.valid && activeCmd
@@ -64,12 +57,11 @@ class sha3Wrapper(W: Int)(implicit p: Parameters) extends AcceleratorCore {
   val sha3_module = Module(new Sha3Accel(W))
   sha3_module.io.message.bits <> vec_in.dataChannel.data.bits
   sha3_module.io.message.valid <> vec_in.dataChannel.data.valid
-  sha3_module.io.message.ready <> something
+  sha3_module.io.message.ready <> vec_in.dataChannel.data.ready
 
   sha3_module.io.hash.bits <> vec_out.dataChannel.data.bits
-  sha3_module.io.hash.valid <> something
-  sha3_module.io.hash.ready <> something
-
+  sha3_module.io.hash.valid <> vec_out.dataChannel.data.valid
+  sha3_module.io.hash.ready <> vec_out.dataChannel.data.ready
 
   val all_channels_are_idle = vec_in.requestChannel.ready && vec_out.requestChannel.ready
   io.req.ready := !activeCmd && all_channels_are_idle
@@ -79,9 +71,5 @@ class sha3Wrapper(W: Int)(implicit p: Parameters) extends AcceleratorCore {
   when(io.resp.fire) {
     activeCmd := false.B
   }
-
-  // IGNORE FOR NOW
-  // instantiation definitely not correct
-
 
 }
