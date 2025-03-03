@@ -29,48 +29,43 @@ void dma_workaround_copy_from_fpga(remote_ptr &q) {
     }
 }
 
-
 int main() {
     // connection to the FPGA management runtime, needed in the TB.
     fpga_handle_t handle;
 
-    remote_ptr arr = handle.malloc(sizeof() * 24);
-    long long arr[24];
-    std::fill(arr, arr + 24, 0);
+    // create array of 0s
+    remote_ptr in_alloc = handle.malloc(sizeof(uint64_t) * 24);
+    int * host_alloc = (int*)in_alloc.getHostAddr();
+    std::fill(host_alloc, host_alloc + 24, 0);
 
+    // create result destination in memory
+    remote_ptr res = handle.malloc(sizeof(uint64_t) * 4);
+    int * host_alloc_rest = (int*)res.getHostAddr();
+
+    // move it over to the FPGA (IMPORTANT)
+    dma_workaround_copy_to_fpga(in_alloc);
+    dma_workaround_copy_to_fpga(res);
+
+    // call accelerator
+    sha3Wrapper::sha3(
+        0, // core ID
+        in_alloc, // memory allocation for input state
+        res
+    ).get();
+
+    // values to expect
     uint64_t a = 0xF1258F7940E1DDE7;
     uint64_t b = 0x84D5CCF933C0478A;
     uint64_t c = 0xD598261EA65AA9EE;
     uint64_t d = 0xBD1547306F80494D;
+    uint64_t expect[4] = {a, b, c, d};
 
-
-/*BELOW IS NOT APPROVED*/
-    int n_eles = 1024;
-    // use the handle to allocate memory in the host/fpga simultaneously
-    remote_ptr in_alloc = handle.malloc(sizeof(int) * n_eles);
-    // put data in the host CPU side of the allocation
-    int * host_alloc = (int*)in_alloc.getHostAddr();
-    for (int i = 0; i < n_eles; i++) {
-        host_alloc[i] = i;
-    }
-    // move it over to the FPGA (IMPORTANT)
-    dma_workaround_copy_to_fpga(in_alloc);
-
-    // call your accelerator. If you used the Address() interface in your BeethovenIO, you pass in a `remote_ptr` for
-    // that. `remote_ptr` is the structure we use for allocating in the host/fpga.
-    MyVectorAdd::vector_add(0, // CORE ID (always needed, but only non-zero if you have more than one core)
-        15, // addend
-        n_eles, // n_elements
-        in_alloc // memory allocation
-    ).get();
-
-    // copy back from the FPGA (IMPORTANT)
     dma_workaround_copy_from_fpga(in_alloc);
+    dma_workaround_copy_from_fpga(res);
 
-    // check for correctness
-    for (int i = 0; i < n_eles; i++) {
-        if (host_alloc[i] != i + 15) {
-            printf("FAIL idx[%d] is %d, expect %d\n", i, host_alloc[i], i + 15);
+    for (int i = 0; i < 4, i++) {
+        if (res[i] != expect[i]) {
+            printf("FAIL hash idx[%d] is %d, expected %d\n", i, res[i], expect[i]);
         }
     }
     printf("If no fails, then success!\n");
