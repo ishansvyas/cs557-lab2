@@ -55,11 +55,20 @@ class sha3Wrapper(W: Int)(implicit p: Parameters) extends AcceleratorCore {
 
   // actual output data
   val sha3_module = Module(new Sha3Accel(W))
-  sha3_module.io.message.bits := vec_in.dataChannel.data.bits
+  /* try below to solve:
+  * [error] chisel3.internal.ChiselException:
+  * Connection between sink (Sha3Accel.io.message.bits: IO[UInt<64>[17]])
+  * and source (sha3Wrapper.readData_vec_in_channel0.data.bits: IO[UInt<8704>])
+  * failed @: Sink (UInt<64>[17]) and Source (UInt<8704>) have different types.
+  * */
+  sha3_module.io.message.bits := VecInit(
+    (0 until round_size_words).map(i => vec_in.dataChannel.data.bits( (i+1)*W - 1, i*W ))
+  )
   sha3_module.io.message.valid := vec_in.dataChannel.data.valid
   vec_in.dataChannel.data.ready := sha3_module.io.message.ready
 
-  vec_out.dataChannel.data.bits := sha3_module.io.hash.bits
+  // also try .asUInt
+  vec_out.dataChannel.data.bits := sha3_module.io.hash.bits.asUInt
   vec_out.dataChannel.data.valid := sha3_module.io.hash.valid
   sha3_module.io.hash.ready := vec_out.dataChannel.data.ready
 
