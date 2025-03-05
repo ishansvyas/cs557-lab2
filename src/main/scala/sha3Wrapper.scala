@@ -55,13 +55,13 @@ class sha3Wrapper(W: Int)(implicit p: Parameters) extends AcceleratorCore {
 
   // actual output data
   val sha3_module = Module(new Sha3Accel(W))
-  sha3_module.io.message.bits <> vec_in.dataChannel.data.bits
-  sha3_module.io.message.valid <> vec_in.dataChannel.data.valid
-  sha3_module.io.message.ready <> vec_in.dataChannel.data.ready
+  sha3_module.io.message.bits := vec_in.dataChannel.data.bits
+  sha3_module.io.message.valid := vec_in.dataChannel.data.valid
+  vec_in.dataChannel.data.ready := sha3_module.io.message.ready
 
-  sha3_module.io.hash.bits <> vec_out.dataChannel.data.bits
-  sha3_module.io.hash.valid <> vec_out.dataChannel.data.valid
-  sha3_module.io.hash.ready <> vec_out.dataChannel.data.ready
+  vec_out.dataChannel.data.bits := sha3_module.io.hash.bits
+  vec_out.dataChannel.data.valid := sha3_module.io.hash.valid
+  sha3_module.io.hash.ready := vec_out.dataChannel.data.ready
 
   val all_channels_are_idle = vec_in.requestChannel.ready && vec_out.requestChannel.ready
   io.req.ready := !activeCmd && all_channels_are_idle
