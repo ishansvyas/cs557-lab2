@@ -55,12 +55,7 @@ class sha3Wrapper(W: Int)(implicit p: Parameters) extends AcceleratorCore {
 
   // actual output data
   val sha3_module = Module(new Sha3Accel(W))
-  /* try below to solve:
-  * [error] chisel3.internal.ChiselException:
-  * Connection between sink (Sha3Accel.io.message.bits: IO[UInt<64>[17]])
-  * and source (sha3Wrapper.readData_vec_in_channel0.data.bits: IO[UInt<8704>])
-  * failed @: Sink (UInt<64>[17]) and Source (UInt<8704>) have different types.
-  * */
+
   sha3_module.io.message.bits := VecInit(
     (0 until round_size_words).map(i => vec_in.dataChannel.data.bits( (i+1)*W - 1, i*W ))
   )
@@ -81,4 +76,24 @@ class sha3Wrapper(W: Int)(implicit p: Parameters) extends AcceleratorCore {
     activeCmd := false.B
   }
 
+  // to do: state machine to hold the memory input
+  // reg file that holds 17 * 8 bytes.
+  val inputRegFile = RegInit(VecInit(Seq.fill(17)(0.U(64.W))))
+  val outputRegFile = RegInit(VecInit(Seq.fill(4)(0.U(64.W))))
+  val counter = RegInit(0.U(5.W))
+
+  // when valid/ready handshake, initiate counter to 17.
+  when (vec_in.dataChannel.data.valid && counter < 17.U) {
+      inputRegFile(counter) := vec_in.dataChannel.data.bits
+      counter := counter + 1.U
+  }
+  // then, once data stored, pass to sha3.input
+  when (counter === 17.U) {
+      sha3_module.io.hash.bits := inputRegFile
+      sha3_module.io.hash.valid := true.B
+      counter := 0.U
+  }
+
+  // to do: state machine to hold the memory output
+  // same idea for sha3 output
 }

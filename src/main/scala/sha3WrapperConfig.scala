@@ -10,8 +10,8 @@ class sha3WrapperConfig(W: Int) extends AcceleratorConfig(List(
     //  dataBytes
     memoryChannelConfig = List(
       // ReadChannelConfig dataByes must be 2^n; assume W=64 so 25*64 < 2^11
-      ReadChannelConfig("vec_in", dataBytes = 2048),
-      WriteChannelConfig("vec_out", dataBytes = 256 /* hash is always 256 */))
+      ReadChannelConfig("vec_in", dataBytes = 8), // 8 bytes * 17 = 136
+      WriteChannelConfig("vec_out", dataBytes = 8 /* hash is always 256 */))
   ),
   new DMAHelperConfig, new MemsetHelperConfig(4)))
 
