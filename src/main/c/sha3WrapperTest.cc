@@ -35,12 +35,12 @@ int main() {
 
     // create array of 0s
     remote_ptr in_alloc = handle.malloc(sizeof(uint64_t) * 24);
-    int * host_alloc = (int*)in_alloc.getHostAddr();
+    uint64_t* host_alloc = (uint64_t*)in_alloc.getHostAddr();
     std::fill(host_alloc, host_alloc + 24, 0);
 
     // create result destination in memory
     remote_ptr res = handle.malloc(sizeof(uint64_t) * 4);
-    int * host_alloc_rest = (int*)res.getHostAddr();
+    uint64_t * host_alloc_rest = (uint64_t*)res.getHostAddr();
 
     // move it over to the FPGA (IMPORTANT)
     dma_workaround_copy_to_fpga(in_alloc);
@@ -63,10 +63,11 @@ int main() {
     dma_workaround_copy_from_fpga(in_alloc);
     dma_workaround_copy_from_fpga(res);
 
-    for (int i = 0; i < 4, i++) {
-        if (res[i] != expect[i]) {
-            printf("FAIL hash idx[%d] is %d, expected %d\n", i, res[i], expect[i]);
+    for (int i = 0; i < 4; i++) {
+        if (*host_alloc_rest != expect[i]) {
+            printf("FAIL hash idx[%d] is %llu, expected %llu\n", i, *host_alloc_rest, expect[i]);
         }
+        host_alloc_rest++;
     }
     printf("If no fails, then success!\n");
     return 0;
