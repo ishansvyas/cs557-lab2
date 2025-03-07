@@ -50,7 +50,7 @@ int main() {
     sha3Wrapper::sha3(
         0, // core ID
         in_alloc, // memory allocation for input state
-        res
+        res       // memory of output
     ).get();
 
     // values to expect
@@ -66,6 +66,7 @@ int main() {
     for (int i = 0; i < 4; i++) {
         if (*host_alloc_rest != expect[i]) {
             printf("FAIL hash idx[%d] is %llu, expected %llu\n", i, *host_alloc_rest, expect[i]);
+            printf("By the way, res is %llu\n", *res);
         }
         host_alloc_rest++;
     }
