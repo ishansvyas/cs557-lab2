@@ -58,7 +58,7 @@ class sha3Wrapper(W: Int)(implicit p: Parameters) extends AcceleratorCore {
 
   // sha3_module initialization
   val sha3_module = Module(new Sha3Accel(W))
-  sha3_module.io.message.bits := Vec(round_size_words, Bits(W.W))
+//  sha3_module.io.message.bits do I even need to initialize?
   sha3_module.io.message.valid := false.B
 //  sha3_module.io.message.ready GIVEN
 //  sha3_module.io.hash.bits GIVEN
