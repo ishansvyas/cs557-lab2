@@ -65,26 +65,6 @@ class sha3Wrapper(W: Int)(implicit p: Parameters) extends AcceleratorCore {
 //  sha3_module.io.hash.valid GIVEN
   sha3_module.io.hash.ready := true.B
 
-  // BELOW --------------------------------------------
-  /*
-  vec_out.dataChannel.data.valid := vec_in.dataChannel.data.valid && activeCmd
-  vec_in.dataChannel.data.ready := vec_out.dataChannel.data.ready
-
-  // actual output data
-
-  sha3_module.io.message.valid := vec_in.dataChannel.data.valid
-  vec_in.dataChannel.data.ready := sha3_module.io.message.ready
-
-  // also try .asUInt
-  vec_out.dataChannel.data.bits := sha3_module.io.hash.bits.asUInt
-  vec_out.dataChannel.data.valid := sha3_module.io.hash.valid
-  sha3_module.io.hash.ready := vec_out.dataChannel.data.ready
-
-  val all_channels_are_idle = vec_in.requestChannel.ready && vec_out.requestChannel.ready
-  io.req.ready := !activeCmd && all_channels_are_idle
-  io.resp.valid := activeCmd && all_channels_are_idle
-*/
-  // ABOVE -----------------------------------------
   // active command logic pt. 2
   when(io.resp.fire) {
     activeCmd := false.B
