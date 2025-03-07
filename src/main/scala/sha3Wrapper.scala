@@ -56,14 +56,21 @@ class sha3Wrapper(W: Int)(implicit p: Parameters) extends AcceleratorCore {
 //  io.resp.ready GIVEN
   io.resp.valid := vec_in.requestChannel.ready && vec_out.requestChannel.ready && activeCmd
 
+  // sha3_module initialization
+  val sha3_module = Module(new Sha3Accel(W))
+  sha3_module.io.message.bits := Vec(round_size_words, Bits(W.W))
+  sha3_module.io.message.valid := false.B
+//  sha3_module.io.message.ready GIVEN
+//  sha3_module.io.hash.bits GIVEN
+//  sha3_module.io.hash.valid GIVEN
+  sha3_module.io.hash.ready := true.B
+
   // BELOW --------------------------------------------
   /*
-    // sha3_module initialization
   vec_out.dataChannel.data.valid := vec_in.dataChannel.data.valid && activeCmd
   vec_in.dataChannel.data.ready := vec_out.dataChannel.data.ready
 
   // actual output data
-  val sha3_module = Module(new Sha3Accel(W))
 
   sha3_module.io.message.valid := vec_in.dataChannel.data.valid
   vec_in.dataChannel.data.ready := sha3_module.io.message.ready
