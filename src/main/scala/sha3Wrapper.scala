@@ -103,6 +103,4 @@ class sha3Wrapper(W: Int)(implicit p: Parameters) extends AcceleratorCore {
     vec_out.dataChannel.data.valid := true.B
     counter_out := counter_out + 1.U
   }
-
-
 }
