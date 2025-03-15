@@ -77,7 +77,7 @@ class sha3Wrapper(W: Int)(implicit p: Parameters) extends AcceleratorCore {
   val inputRegFile = RegInit(VecInit(Seq.fill(17)(0.U(64.W))))
   val outputRegFile = RegInit(VecInit(Seq.fill(4)(0.U(64.W))))
   val counter_in = RegInit(0.U(5.W))
-  val counter_out = RegInit(0.U(5.W))
+  val counter_out = RegInit(0.U(3.W))
   val start_export = RegInit(false.B)
 
   // when valid/ready handshake, initiate counter to 17.
@@ -97,16 +97,24 @@ class sha3Wrapper(W: Int)(implicit p: Parameters) extends AcceleratorCore {
   when (sha3_module.io.hash.valid && vec_out.dataChannel.data.ready) {
     outputRegFile := sha3_module.io.hash.bits
     start_export := true.B
+    counter_out := 0.U
   }
-  when (start_export && counter_out < 4.U) {
-    vec_out.dataChannel.data.bits := outputRegFile(counter_out)
-    vec_out.dataChannel.data.valid := true.B
-    counter_out := counter_out + 1.U
 
-    // logically, the following line is useless
-    if (counter_out == 3.U) {start_export := false.B}
-  } .otherwise {
-    // makes sure to cut output once done.
+  when(start_export) {
+    when(counter_out < 4.U) {
+      vec_out.dataChannel.data.bits := outputRegFile(counter_out)
+      vec_out.dataChannel.data.valid := true.B
+      counter_out := counter_out + 1.U
+    }.otherwise {
+      vec_out.dataChannel.data.valid := false.B
+      start_export := false.B
+    }
+  }.otherwise {
     vec_out.dataChannel.data.valid := false.B
   }
- }
+
+  // Reset
+  when(counter_out === 4.U || !start_export) {
+    counter_out := 0.U
+  }
+}
