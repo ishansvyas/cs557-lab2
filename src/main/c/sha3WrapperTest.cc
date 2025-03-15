@@ -44,7 +44,7 @@ int main() {
     uint64_t * host_alloc_rest = (uint64_t*)res.getHostAddr();
 
     // move it over to the FPGA (IMPORTANT)
-//    dma_workaround_copy_to_fpga(in_alloc); // <- commented out???
+    dma_workaround_copy_to_fpga(in_alloc);
     dma_workaround_copy_to_fpga(res);
 
     // call accelerator
