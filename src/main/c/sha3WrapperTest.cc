@@ -34,13 +34,13 @@ int main() {
     // connection to the FPGA management runtime, needed in the TB.
     fpga_handle_t handle;
     // create array of 0s -> 17 0s instead of 24?
-    remote_ptr in_alloc = handle.malloc(sizeof(uint64_t) * 17, 8);
+    remote_ptr in_alloc = handle.malloc(sizeof(uint64_t) * 17);
 
     uint64_t* host_alloc = (uint64_t*)in_alloc.getHostAddr();
     std::fill(host_alloc, host_alloc + 17, 0);
 
     // create result destination in memory
-    remote_ptr res = handle.malloc(sizeof(uint64_t) * 4, 8);
+    remote_ptr res = handle.malloc(sizeof(uint64_t) * 4);
     uint64_t * host_alloc_rest = (uint64_t*)res.getHostAddr();
 
     // move it over to the FPGA (IMPORTANT)
