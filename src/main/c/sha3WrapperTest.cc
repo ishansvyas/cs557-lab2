@@ -50,8 +50,8 @@ int main() {
     // call accelerator
     sha3Wrapper::sha3(
         0, // core ID
-        in_alloc, // memory allocation for input state
-        res       // memory of output
+        res,       // memory of output
+        in_alloc // memory allocation for input state
     ).get();
 
     // values to expect
