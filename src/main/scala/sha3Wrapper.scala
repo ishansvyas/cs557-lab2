@@ -102,5 +102,11 @@ class sha3Wrapper(W: Int)(implicit p: Parameters) extends AcceleratorCore {
     vec_out.dataChannel.data.bits := outputRegFile(counter_out)
     vec_out.dataChannel.data.valid := true.B
     counter_out := counter_out + 1.U
+
+    // logically, the following line is useless
+    if (counter_out == 3.U) {start_export := false.B}
+  } .otherwise {
+    // makes sure to cut output once done.
+    vec_out.dataChannel.data.valid := false.B
   }
-}
+ }
