@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <cstdint>
+#include <iostream>
 #include <beethoven/fpga_handle.h>
 #include <beethoven_hardware.h>
 
@@ -32,9 +33,11 @@ void dma_workaround_copy_from_fpga(remote_ptr &q) {
 int main() {
     // connection to the FPGA management runtime, needed in the TB.
     fpga_handle_t handle;
-
+    std::cout << "ran: fpga_handle_t handle;"
     // create array of 0s
     remote_ptr in_alloc = handle.malloc(sizeof(uint64_t) * 24);
+    std::cout << "ran: remote_ptr in_alloc = handle.malloc(sizeof(uint64_t) * 24);"
+
     uint64_t* host_alloc = (uint64_t*)in_alloc.getHostAddr();
     std::fill(host_alloc, host_alloc + 24, 0);
 
