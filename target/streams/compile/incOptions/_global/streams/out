@@ -1,35 +1,14 @@
 [0m[[0m[0mdebug[0m] [0m[0mCreated transactional ClassFileManager with tempDir = /home/isv4/cs557-lab2/target/scala-2.13/classes.bak[0m
 [0m[[0m[0mdebug[0m] [0m[0mAbout to delete class files:[0m
-[0m[[0m[0mdebug[0m] [0m[0mWe backup class files:[0m
-[0m[[0m[0mdebug[0m] [0m[0mRegistering generated classes:[0m
-[0m[[0m[0mdebug[0m] [0m[0m	IotaModule$$anon$1.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	ChiModule.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	CtrlModule.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	VectorAddConfig$$anonfun$$lessinit$greater$1.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	CtrlModule$$anon$1.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	RhoPiModule$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	common.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	ChiModule$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	sha3Wrapper$$anon$1.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	sha3Wrapper.class[0m
 [0m[[0m[0mdebug[0m] [0m[0m	sha3WrapperConfig$.class[0m
 [0m[[0m[0mdebug[0m] [0m[0m	sha3WrapperConfig.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	VectorAdd.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	VectorAdd$$anon$1.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	IotaModule$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	IotaModule.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	VectorAddConfig$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	RhoPiModule.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	VectorAddConfig.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	DpathModule.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	ThetaModule.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	ChiModule$$anon$1.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	RhoPiModule$$anon$1.class[0m
 [0m[[0m[0mdebug[0m] [0m[0m	sha3WrapperConfig$$anonfun$$lessinit$greater$1.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	Sha3Accel$$anon$1.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	ThetaModule$$anon$1.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	Sha3Accel.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	ThetaModule$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	common$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	DpathModule$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0mWe backup class files:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	sha3WrapperConfig$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	sha3WrapperConfig.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	sha3WrapperConfig$$anonfun$$lessinit$greater$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0mRegistering generated classes:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	sha3WrapperConfig$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	sha3WrapperConfig$$anonfun$$lessinit$greater$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	sha3WrapperConfig.class[0m
 [0m[[0m[0mdebug[0m] [0m[0mRemoving the temporary directory used for backing up class files: /home/isv4/cs557-lab2/target/scala-2.13/classes.bak[0m
