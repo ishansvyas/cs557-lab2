@@ -16,7 +16,9 @@ class sha3WrapperConfig(W: Int) extends AcceleratorConfig(List(
   new DMAHelperConfig, new MemsetHelperConfig(4)))
 
 object sha3WrapperConfig extends BeethovenBuild(new sha3WrapperConfig(W = 64),
-  buildMode = BuildMode.Simulation,
+  buildMode = BuildMode.Synthesis,
+  //  BuildMode.Synthesis when ready to build hardware
+  //  BuildMode.Simulation when testing
   platform = new AWSF2Platform)
 
 
