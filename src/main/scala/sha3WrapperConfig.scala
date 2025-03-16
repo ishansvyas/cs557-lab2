@@ -19,6 +19,7 @@ object sha3WrapperConfig extends BeethovenBuild(new sha3WrapperConfig(W = 64),
   buildMode = BuildMode.Synthesis,
   //  BuildMode.Synthesis when ready to build hardware
   //  BuildMode.Simulation when testing
+  // by running synthesis, and providing the F2 IP address, it copies over the hardware to the fpga.
   platform = new AWSF2Platform)
 
 
