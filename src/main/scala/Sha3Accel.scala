@@ -51,7 +51,3 @@ class Sha3Accel(val W: Int) extends Module {
   }
   io.hash.bits := paddedMessage.slice(0, hash_size_words)
 }
-
-// object Sha3AccelMain extends App {
-//   Driver.execute(args, () => new Sha3Accel(64))
-// }

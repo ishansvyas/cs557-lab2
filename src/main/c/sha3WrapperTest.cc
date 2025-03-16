@@ -54,6 +54,9 @@ int main() {
         in_alloc // memory allocation for input state
     ).get();
 
+    dma_workaround_copy_from_fpga(in_alloc);
+    dma_workaround_copy_from_fpga(res);
+
     // values to expect
     uint64_t a = 0xF1258F7940E1DDE7;
     uint64_t b = 0x84D5CCF933C0478A;
@@ -61,15 +64,12 @@ int main() {
     uint64_t d = 0xBD1547306F80494D;
     uint64_t expect[4] = {a, b, c, d};
 
-    dma_workaround_copy_from_fpga(in_alloc);
-    dma_workaround_copy_from_fpga(res);
-
     for (int i = 0; i < 4; i++) {
-        if (*host_alloc_rest != expect[i]) {
-            printf("FAIL hash idx[%d] is %llu, expected %llu\n", i, *host_alloc_rest, expect[i]);
+        if (host_alloc_rest[i] != expect[i]) {
+            printf("FAIL hash idx[%d] is %llu, expected %llu\n", i, host_alloc_rest[i], expect[i]);
 //            printf("By the way, res is %llu\n", *res);
         }
-        host_alloc_rest++;
+
     }
     printf("If no fails, then success!\n");
     return 0;

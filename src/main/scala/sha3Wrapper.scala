@@ -43,7 +43,10 @@ class sha3Wrapper(W: Int)(implicit p: Parameters) extends AcceleratorCore {
     // vec_out initialization ---------
 //  vec_out.requestChannel.ready   GIVEN
   vec_out.requestChannel.valid := io.resp.valid
-  vec_out.requestChannel.bits.addr <> io.req.bits.hash_addr   // i think <> works but if not changed to :=
+
+  // if I'm writing in multiple beats, does this need to be changed? --~-~-~-~-~-----~---~-~-~~~~~~-------------
+  vec_out.requestChannel.bits.addr <> io.req.bits.hash_addr
+
   vec_out.requestChannel.bits.len := 32.U
 //  vec_out.dataChannel.data.ready  GIVEN
   vec_out.dataChannel.data.bits := DontCare
